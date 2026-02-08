@@ -113,7 +113,28 @@ flowchart LR
 
 ---
 
-# Part 1: Why Plugin Architectures? (Slide 3)
+# What is Plugin Architectures? (Slide 3)
+
+<div class="slide-content-area">
+
+<div class="diagram-wrap">
+
+```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#B8A9C9', 'primaryTextColor':'#ffffff', 'primaryBorderColor':'#9B8BB5', 'lineColor':'#9B8BB5', 'secondaryColor':'#C4B5D4', 'tertiaryColor':'#D4C5E0'}}}%%
+flowchart TB
+  H[Host / Core application]
+  H --> P1[Plugin A]
+  H --> P2[Plugin B]
+  H --> P3[Plugin N]
+```
+
+</div>
+
+</div>
+
+---
+
+# Part 1: Why Plugin Architectures? (Slide 4)
 
 <div class="slide-content-area">
 
@@ -162,7 +183,7 @@ flowchart TB
 
 ---
 
-# The Consistency Problem (Slide 4)
+# The Consistency Problem (Slide 5)
 
 <div class="slide-content-area">
 
@@ -222,7 +243,7 @@ flowchart LR
 
 ---
 
-# Before vs After (Slide 5)
+# Before vs After (Slide 6)
 
 <div class="slide-content-area">
 
@@ -269,7 +290,7 @@ flowchart TB
 
 ---
 
-# Part 2: Five Strategies (Slide 6)
+# Part 2: Five Strategies (Slide 7)
 
 <div class="slide-content-area">
 
@@ -293,7 +314,7 @@ flowchart TB
 
 ---
 
-# Case Study Introduction (Slide 7)
+# Case Study Introduction (Slide 8)
 
 <div class="slide-content-area">
 
@@ -336,7 +357,7 @@ flowchart LR
 
 ---
 
-# Strategy 1: Central Theme System – The Principle (Slide 8)
+# Strategy 1: Central Theme System – The Principle (Slide 9)
 
 <div class="slide-content-area">
 
@@ -359,7 +380,7 @@ flowchart TB
 
 ---
 
-# Why Centralize (Slide 9)
+# Why Centralize (Slide 10)
 
 <div class="slide-content-area">
 
@@ -404,7 +425,7 @@ flowchart TB
 
 ---
 
-# Implementation Pattern (theme) (Slide 10)
+# Implementation Pattern (theme) (Slide 11)
 
 <div class="slide-content-area">
 
@@ -448,7 +469,7 @@ flowchart LR
 
 ---
 
-# RHDH Example (theme) (Slide 11)
+# RHDH Example (theme) (Slide 12)
 
 <div class="slide-content-area">
 
@@ -493,7 +514,7 @@ flowchart LR
 
 ---
 
-# Takeaway (theme) (Slide 12)
+# Takeaway (theme) (Slide 13)
 
 <div class="slide-content-area">
 
@@ -515,7 +536,7 @@ flowchart TB
 
 ---
 
-# Strategy 2: Runtime Dependency Sharing – The Problem with Bundling (Slide 13)
+# Strategy 2: Runtime Dependency Sharing – The Problem with Bundling (Slide 14)
 
 <div class="slide-content-area">
 
@@ -539,7 +560,7 @@ flowchart TB
 
 ---
 
-# The Solution (Module Federation) (Slide 14)
+# The Solution (Module Federation) (Slide 15)
 
 <div class="slide-content-area">
 
@@ -562,7 +583,7 @@ flowchart TB
 
 ---
 
-# What to Share (Slide 15)
+# What to Share (Slide 16)
 
 <div class="slide-content-area">
 
@@ -587,7 +608,7 @@ flowchart LR
 
 ---
 
-# Implementation (Webpack Module Federation) (Slide 16)
+# Implementation (Webpack Module Federation) (Slide 17)
 
 <div class="slide-content-area">
 
@@ -610,7 +631,7 @@ flowchart TB
 
 ---
 
-# RHDH Scalprum (Slide 17)
+# RHDH Scalprum (Slide 18)
 
 <div class="slide-content-area">
 
@@ -631,7 +652,7 @@ flowchart LR
 
 ---
 
-# Strategy 3: Style Isolation – The CSS Problem (Slide 18)
+# Strategy 3: Style Isolation – The CSS Problem (Slide 19)
 
 <div class="slide-content-area">
 
@@ -653,7 +674,7 @@ flowchart LR
 
 ---
 
-# Isolation Techniques (Slide 19)
+# Isolation Techniques (Slide 20)
 
 <div class="slide-content-area">
 
@@ -695,7 +716,7 @@ flowchart TB
 
 ---
 
-# More Techniques (Slide 20)
+# More Techniques (Slide 21)
 
 <div class="slide-content-area">
 
@@ -716,7 +737,7 @@ flowchart LR
 
 ---
 
-# RHDH Wrapper Example (Slide 21)
+# RHDH Wrapper Example (Slide 22)
 
 <div class="slide-content-area">
 
@@ -761,7 +782,7 @@ flowchart TB
 
 ---
 
-# Strategy 4: Extension Contracts – The Principle (Slide 22)
+# Strategy 4: Extension Contracts – The Principle (Slide 23)
 
 <div class="slide-content-area">
 
@@ -803,7 +824,7 @@ flowchart TB
 
 ---
 
-# Mount Points (Slide 23)
+# Mount Points (Slide 24)
 
 <div class="slide-content-area">
 
@@ -828,7 +849,7 @@ flowchart TB
 
 ---
 
-# More Extension Points (Slide 24)
+# More Extension Points (Slide 25)
 
 <div class="slide-content-area">
 
@@ -868,7 +889,7 @@ flowchart LR
 
 ---
 
-# TypeScript Enforcement (Slide 25)
+# TypeScript Enforcement (Slide 26)
 
 <div class="slide-content-area">
 
@@ -890,7 +911,7 @@ flowchart TB
 
 ---
 
-# YAML Configuration (Slide 26)
+# YAML Configuration (Slide 27)
 
 <div class="slide-content-area">
 
@@ -914,7 +935,7 @@ flowchart LR
 
 ---
 
-# Strategy 5: Configuration-Driven – The Principle (Slide 27)
+# Strategy 5: Configuration-Driven – The Principle (Slide 28)
 
 <div class="slide-content-area">
 
@@ -956,7 +977,7 @@ flowchart TB
 
 ---
 
-# What Should Be Configurable (Slide 28)
+# What Should Be Configurable (Slide 29)
 
 <div class="slide-content-area">
 
@@ -983,7 +1004,7 @@ flowchart LR
 
 ---
 
-# Theme Hooks (Slide 29)
+# Theme Hooks (Slide 30)
 
 <div class="slide-content-area">
 
@@ -1004,7 +1025,7 @@ flowchart TB
 
 ---
 
-# Putting It Together: Complete Architecture (Slide 30)
+# Putting It Together: Complete Architecture (Slide 31)
 
 <div class="slide-content-area">
 
@@ -1027,7 +1048,7 @@ flowchart TB
 
 ---
 
-# Wrapper Pattern (Slide 31)
+# Wrapper Pattern (Slide 32)
 
 <div class="slide-content-area">
 
@@ -1074,7 +1095,7 @@ flowchart TB
 
 ---
 
-# Implementation Roadmap (Slide 32)
+# Implementation Roadmap (Slide 33)
 
 <div class="slide-content-area">
 
@@ -1098,7 +1119,7 @@ flowchart LR
 
 ---
 
-# Common Pitfalls (Slide 33)
+# Common Pitfalls (Slide 34)
 
 <div class="slide-content-area">
 
@@ -1128,7 +1149,7 @@ flowchart LR
 
 ---
 
-# Results: Metrics (Slide 34)
+# Results: Metrics (Slide 35)
 
 <div class="slide-content-area">
 
@@ -1156,7 +1177,7 @@ flowchart LR
 
 ---
 
-# Key Takeaways (Slide 35)
+# Key Takeaways (Slide 36)
 
 <div class="slide-content-area">
 
@@ -1179,7 +1200,7 @@ flowchart TB
 
 ---
 
-# Final Thought (Slide 36)
+# Final Thought (Slide 37)
 
 <div class="slide-content-area">
 
@@ -1199,7 +1220,7 @@ flowchart LR
 
 ---
 
-# Resources (Slide 37)
+# Resources (Slide 38)
 
 <div class="slide-content-area">
 
@@ -1220,7 +1241,7 @@ flowchart LR
 
 ---
 
-# Thank You & Q&A (Slide 38)
+# Thank You & Q&A (Slide 39)
 
 <div class="slide-content-area">
 
