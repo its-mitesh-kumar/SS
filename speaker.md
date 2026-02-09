@@ -44,19 +44,23 @@ We'll use Red Hat Developer Hub as our case study - a production system with 100
 
 ---
 
-## SLIDE 3: Part 1 Header
+## SLIDE 3: What is Plugin Architectures? (1 minute)
 
 **[CLICK TO SLIDE 3]**
 
-*[Pause for transition]*
+*[Point to diagram]*
 
-Let's start with the universal challenge.
+A plugin architecture is a core or host application that others extend with plugins.
+
+The host provides the foundation. Plugins add features - Plugin A, Plugin B, Plugin N - without changing the core. You get one application with many capabilities, built by different teams or vendors, all running together.
 
 ---
 
-## SLIDE 4: Why Plugin Architectures? (2 minutes)
+## SLIDE 4: Part 1: Why Plugin Architectures? (2 minutes)
 
 **[CLICK TO SLIDE 4]**
+
+Let's start with the universal challenge.
 
 Quick show of hands - how many of you work on applications with some kind of plugin or extension system?
 
@@ -120,21 +124,11 @@ Your goal is to make plugins invisible to users. They should never think "this f
 
 ---
 
-## SLIDE 7: Part 2 Header
+## SLIDE 7: Part 2: Five Strategies (2 minutes)
 
 **[CLICK TO SLIDE 7]**
 
-*[Pause]*
-
 Now let's look at the solution framework.
-
----
-
-## SLIDE 8: Five Strategies (2 minutes)
-
-**[CLICK TO SLIDE 8]**
-
-*[Walk through each strategy]*
 
 Here are the five strategies that work together to solve UI consistency:
 
@@ -152,9 +146,9 @@ We'll dive deep into each of these.
 
 ---
 
-## SLIDE 9: Case Study Introduction (1 minute)
+## SLIDE 8: Case Study Introduction (1 minute)
 
-**[CLICK TO SLIDE 9]**
+**[CLICK TO SLIDE 8]**
 
 Throughout this talk, I'll use Red Hat Developer Hub as our case study.
 
@@ -164,19 +158,11 @@ Our challenge was making all these plugins look like ONE product. Everything I'l
 
 ---
 
-## SLIDE 10: Strategy 1 Header
+## SLIDE 9: Strategy 1: Central Theme System – The Principle (2 minutes)
 
-**[CLICK TO SLIDE 10]**
-
-*[Pause]*
+**[CLICK TO SLIDE 9]**
 
 Strategy One: Central Theme System. This is where you should start.
-
----
-
-## SLIDE 11: The Principle (2 minutes)
-
-**[CLICK TO SLIDE 11]**
 
 *[Emphasize the key idea]*
 
@@ -193,9 +179,9 @@ This is your foundation. Get this right first.
 
 ---
 
-## SLIDE 12: Why Centralize (2 minutes)
+## SLIDE 10: Why Centralize (2 minutes)
 
-**[CLICK TO SLIDE 12]**
+**[CLICK TO SLIDE 10]**
 
 *[Show the contrast]*
 
@@ -211,9 +197,9 @@ This seems obvious, but many teams skip it. They let plugins define their own co
 
 ---
 
-## SLIDE 13: Implementation Pattern (2 minutes)
+## SLIDE 11: Implementation Pattern (theme) (2 minutes)
 
-**[CLICK TO SLIDE 13]**
+**[CLICK TO SLIDE 11]**
 
 *[Walk through the code]*
 
@@ -231,9 +217,9 @@ The key is defining everything in one place.
 
 ---
 
-## SLIDE 14: RHDH Example (2 minutes)
+## SLIDE 12: RHDH Example (theme) (2 minutes)
 
-**[CLICK TO SLIDE 14]**
+**[CLICK TO SLIDE 12]**
 
 In RHDH, we have a dedicated theme plugin with 30+ color tokens.
 
@@ -247,9 +233,9 @@ The `useThemes()` hook is how the platform accesses all theme data centrally.
 
 ---
 
-## SLIDE 15: Takeaway (30 seconds)
+## SLIDE 13: Takeaway (theme) (30 seconds)
 
-**[CLICK TO SLIDE 15]**
+**[CLICK TO SLIDE 13]**
 
 *[Emphasize]*
 
@@ -259,19 +245,11 @@ Here's a quick checklist. Single package. 20-30 tokens minimum. Component-specif
 
 ---
 
-## SLIDE 16: Strategy 2 Header
+## SLIDE 14: Strategy 2: Runtime Dependency Sharing – The Problem with Bundling (2 minutes)
 
-**[CLICK TO SLIDE 16]**
-
-*[Pause]*
+**[CLICK TO SLIDE 14]**
 
 Strategy Two: Runtime Dependency Sharing.
-
----
-
-## SLIDE 17: The Problem with Bundling (2 minutes)
-
-**[CLICK TO SLIDE 17]**
 
 *[Show urgency]*
 
@@ -285,9 +263,9 @@ React MUST be a singleton. Same with any stateful library.
 
 ---
 
-## SLIDE 18: The Solution (2 minutes)
+## SLIDE 15: The Solution (Module Federation) (2 minutes)
 
-**[CLICK TO SLIDE 18]**
+**[CLICK TO SLIDE 15]**
 
 The solution is Module Federation - sharing libraries at RUNTIME, not build time.
 
@@ -301,9 +279,9 @@ Single instance of everything. Problem solved.
 
 ---
 
-## SLIDE 19: What to Share (1 minute)
+## SLIDE 16: What to Share (1 minute)
 
-**[CLICK TO SLIDE 19]**
+**[CLICK TO SLIDE 16]**
 
 *[Go through the table]*
 
@@ -321,9 +299,9 @@ Rule of thumb: share anything that must be a singleton OR is used by more than h
 
 ---
 
-## SLIDE 20: Implementation (2 minutes)
+## SLIDE 17: Implementation (Webpack Module Federation) (2 minutes)
 
-**[CLICK TO SLIDE 20]**
+**[CLICK TO SLIDE 17]**
 
 *[Walk through code]*
 
@@ -337,9 +315,9 @@ This is Webpack 5's built-in feature. No extra libraries needed.
 
 ---
 
-## SLIDE 21: RHDH Scalprum (1 minute)
+## SLIDE 18: RHDH Scalprum (1 minute)
 
-**[CLICK TO SLIDE 21]**
+**[CLICK TO SLIDE 18]**
 
 RHDH uses Scalprum, which wraps Module Federation with some nice features.
 
@@ -347,19 +325,11 @@ See how we transform plugin manifests to load scripts from our backend API? This
 
 ---
 
-## SLIDE 22: Strategy 3 Header
+## SLIDE 19: Strategy 3: Style Isolation – The CSS Problem (2 minutes)
 
-**[CLICK TO SLIDE 22]**
-
-*[Pause]*
+**[CLICK TO SLIDE 19]**
 
 Strategy Three: Style Isolation.
-
----
-
-## SLIDE 23: The CSS Problem (1 minute)
-
-**[CLICK TO SLIDE 23]**
 
 CSS is global by default.
 
@@ -371,9 +341,9 @@ Even when you share MUI via Module Federation, different plugins might add diffe
 
 ---
 
-## SLIDE 24: Isolation Techniques (2 minutes)
+## SLIDE 20: Isolation Techniques (2 minutes)
 
-**[CLICK TO SLIDE 24]**
+**[CLICK TO SLIDE 20]**
 
 *[Cover both techniques]*
 
@@ -389,9 +359,9 @@ Shadow DOM is more complex but more isolated. Choose based on your needs.
 
 ---
 
-## SLIDE 25: More Techniques (1 minute)
+## SLIDE 21: More Techniques (1 minute)
 
-**[CLICK TO SLIDE 25]**
+**[CLICK TO SLIDE 21]**
 
 *[Quick overview]*
 
@@ -403,9 +373,9 @@ In RHDH, we use the ClassNameGenerator approach in plugin wrappers. 14+ plugins 
 
 ---
 
-## SLIDE 26: RHDH Wrapper Example (1 minute)
+## SLIDE 22: RHDH Wrapper Example (1 minute)
 
-**[CLICK TO SLIDE 26]**
+**[CLICK TO SLIDE 22]**
 
 *[Walk through the code]*
 
@@ -417,19 +387,11 @@ The wrapper adds isolation without modifying the upstream code. This is huge - y
 
 ---
 
-## SLIDE 27: Strategy 4 Header
+## SLIDE 23: Strategy 4: Extension Contracts – The Principle (2 minutes)
 
-**[CLICK TO SLIDE 27]**
-
-*[Pause]*
+**[CLICK TO SLIDE 23]**
 
 Strategy Four: Extension Contracts.
-
----
-
-## SLIDE 28: The Principle (2 minutes)
-
-**[CLICK TO SLIDE 28]**
 
 *[Emphasize the contrast]*
 
@@ -441,9 +403,9 @@ Contracts are your rules of engagement.
 
 ---
 
-## SLIDE 29: Mount Points (2 minutes)
+## SLIDE 24: Mount Points (2 minutes)
 
-**[CLICK TO SLIDE 29]**
+**[CLICK TO SLIDE 24]**
 
 *[Walk through code]*
 
@@ -457,9 +419,9 @@ The platform controls structure. Plugins provide content. Plugins can't break th
 
 ---
 
-## SLIDE 30: More Extension Points (1 minute)
+## SLIDE 25: More Extension Points (1 minute)
 
-**[CLICK TO SLIDE 30]**
+**[CLICK TO SLIDE 25]**
 
 Routes can also be declared. The plugin specifies the path, the component, and optionally a menu item.
 
@@ -469,9 +431,9 @@ All through defined contracts.
 
 ---
 
-## SLIDE 31: TypeScript Enforcement (2 minutes)
+## SLIDE 26: TypeScript Enforcement (2 minutes)
 
-**[CLICK TO SLIDE 31]**
+**[CLICK TO SLIDE 26]**
 
 *[Emphasize TypeScript]*
 
@@ -485,9 +447,9 @@ This is documentation as code.
 
 ---
 
-## SLIDE 32: YAML Configuration (2 minutes)
+## SLIDE 27: YAML Configuration (2 minutes)
 
-**[CLICK TO SLIDE 32]**
+**[CLICK TO SLIDE 27]**
 
 *[Show the YAML]*
 
@@ -501,19 +463,11 @@ Operations teams can manage plugins without developer involvement.
 
 ---
 
-## SLIDE 33: Strategy 5 Header
+## SLIDE 28: Strategy 5: Configuration-Driven – The Principle (1 minute)
 
-**[CLICK TO SLIDE 33]**
-
-*[Pause]*
+**[CLICK TO SLIDE 28]**
 
 Strategy Five: Configuration-Driven Customization.
-
----
-
-## SLIDE 34: The Principle (1 minute)
-
-**[CLICK TO SLIDE 34]**
 
 *[Go through the table]*
 
@@ -527,9 +481,9 @@ For multi-tenant platforms, configuration is essential.
 
 ---
 
-## SLIDE 35: What Should Be Configurable (2 minutes)
+## SLIDE 29: What Should Be Configurable (2 minutes)
 
-**[CLICK TO SLIDE 35]**
+**[CLICK TO SLIDE 29]**
 
 *[Walk through YAML]*
 
@@ -541,9 +495,9 @@ All in a YAML file. No code.
 
 ---
 
-## SLIDE 36: Theme Hooks (1 minute)
+## SLIDE 30: Theme Hooks (1 minute)
 
-**[CLICK TO SLIDE 36]**
+**[CLICK TO SLIDE 30]**
 
 *[Explain the code]*
 
@@ -555,19 +509,11 @@ System theme detection respects user's OS preference. Light or dark, automatical
 
 ---
 
-## SLIDE 37: Putting Together Header
+## SLIDE 31: Putting It Together: Complete Architecture (2 minutes)
 
-**[CLICK TO SLIDE 37]**
-
-*[Pause]*
+**[CLICK TO SLIDE 31]**
 
 Let's see how it all fits together.
-
----
-
-## SLIDE 38: Complete Architecture (2 minutes)
-
-**[CLICK TO SLIDE 38]**
 
 *[Walk through the diagram top to bottom]*
 
@@ -585,9 +531,9 @@ This is the architecture. All five strategies working together.
 
 ---
 
-## SLIDE 39: Wrapper Pattern (1 minute)
+## SLIDE 32: Wrapper Pattern (1 minute)
 
-**[CLICK TO SLIDE 39]**
+**[CLICK TO SLIDE 32]**
 
 *[Quick overview]*
 
@@ -599,9 +545,9 @@ This lets you integrate third-party plugins without forking. Isolation without m
 
 ---
 
-## SLIDE 40: Implementation Roadmap (2 minutes)
+## SLIDE 33: Implementation Roadmap (2 minutes)
 
-**[CLICK TO SLIDE 40]**
+**[CLICK TO SLIDE 33]**
 
 *[Go through phases]*
 
@@ -619,9 +565,9 @@ Don't try to do everything at once. Start with the foundation.
 
 ---
 
-## SLIDE 41: Common Pitfalls (1 minute)
+## SLIDE 34: Common Pitfalls (1 minute)
 
-**[CLICK TO SLIDE 41]**
+**[CLICK TO SLIDE 34]**
 
 *[Quick warning]*
 
@@ -637,19 +583,11 @@ Each has a solution. We've covered them all.
 
 ---
 
-## SLIDE 42: Results Header
+## SLIDE 35: Results: Metrics (2 minutes)
 
-**[CLICK TO SLIDE 42]**
-
-*[Pause]*
+**[CLICK TO SLIDE 35]**
 
 Let's look at real results.
-
----
-
-## SLIDE 43: Metrics (2 minutes)
-
-**[CLICK TO SLIDE 43]**
 
 *[Go through each metric with emphasis]*
 
@@ -667,9 +605,9 @@ Theme changes: from days of code changes to minutes of config editing.
 
 ---
 
-## SLIDE 44: Key Takeaways (2 minutes)
+## SLIDE 36: Key Takeaways (2 minutes)
 
-**[CLICK TO SLIDE 44]**
+**[CLICK TO SLIDE 36]**
 
 *[Slow down, emphasize each point]*
 
@@ -687,9 +625,9 @@ Five: Make it configuration-driven. Operations teams will thank you.
 
 ---
 
-## SLIDE 45: Final Thought (30 seconds)
+## SLIDE 37: Final Thought (30 seconds)
 
-**[CLICK TO SLIDE 45]**
+**[CLICK TO SLIDE 37]**
 
 *[Pause, deliver with conviction]*
 
@@ -701,9 +639,9 @@ That invisibility is the goal. When you achieve it, everyone wins.
 
 ---
 
-## SLIDE 46: Resources (30 seconds)
+## SLIDE 38: Resources (30 seconds)
 
-**[CLICK TO SLIDE 46]**
+**[CLICK TO SLIDE 38]**
 
 Resources for learning more.
 
@@ -715,9 +653,9 @@ All slides and examples will be available at the GitHub link.
 
 ---
 
-## SLIDE 47: Thank You & Q&A (5 minutes)
+## SLIDE 39: Thank You & Q&A (5 minutes)
 
-**[CLICK TO SLIDE 47]**
+**[CLICK TO SLIDE 39]**
 
 *[Return to center, open posture]*
 
@@ -758,15 +696,19 @@ A: Absolutely. Module Federation is often used for micro-frontends. The same pri
 | Section | Duration | Cumulative |
 |---------|----------|------------|
 | Title + What You'll Learn | 2 min | 2 min |
-| Part 1: Universal Challenge | 5 min | 7 min |
-| Part 2: Solution Framework | 3 min | 10 min |
-| Strategy 1: Theme System | 8 min | 18 min |
-| Strategy 2: Module Federation | 6 min | 24 min |
-| Strategy 3: Style Isolation | 5 min | 29 min |
-| Strategy 4: Extension Contracts | 7 min | 36 min |
-| Strategy 5: Configuration | 4 min | 40 min |
-| Putting Together + Roadmap | 5 min | 45 min → compress |
-| Results + Takeaways | 3 min | 40 min |
+| What is Plugin Architectures | 1 min | 3 min |
+| Part 1: Why Plugin Architectures | 2 min | 5 min |
+| Consistency Problem + Before vs After | 3 min | 8 min |
+| Part 2: Five Strategies | 2 min | 10 min |
+| Case Study | 1 min | 11 min |
+| Strategy 1: Theme System | 8 min | 19 min |
+| Strategy 2: Module Federation | 6 min | 25 min |
+| Strategy 3: Style Isolation | 5 min | 30 min |
+| Strategy 4: Extension Contracts | 7 min | 37 min |
+| Strategy 5: Configuration | 4 min | 41 min |
+| Putting Together + Wrapper + Roadmap | 5 min | 46 min |
+| Pitfalls + Results + Takeaways | 4 min | 50 min → compress |
+| Final Thought + Resources | 1 min | 40 min |
 | Q&A | 5 min | 45 min |
 
-**Buffer**: Compress "Putting Together" section if running long.
+**Buffer**: Compress middle sections if running long. Total 39 slides aligned with slides-diagram-heavy.md.
