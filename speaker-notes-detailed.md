@@ -367,10 +367,182 @@ Here's how to set it up with Webpack Module Federation. In your webpack config, 
 
 **Detailed context:**
 
-- **ModuleFederationPlugin:** In the host’s webpack config, you list `shared: { react: { singleton: true, requiredVersion: '^18.0.0' }, 'react-dom': { singleton: true }, ... }`. In each plugin’s config, you mark the same dependencies as shared so they’re not bundled.
-- **singleton: true:** Tells Webpack to resolve to exactly one instance. Without it, you might still get multiple copies in some scenarios.
-- **requiredVersion:** Ensures that if a plugin was built against React 17 and the host has React 18, you get a warning or error instead of silent misbehavior.
-- **Webpack 5 built-in:** No need for extra plugins or custom loaders; Module Federation is part of Webpack 5.
+#### What this slide is about
+
+The slide answers: *"How do we actually get one React (and one UI lib, router, etc.) at runtime?"* The mechanism in the deck is **Webpack 5 Module Federation** with a **shared** list and **singleton** settings. No extra plugins or libraries beyond Webpack 5.
+
+#### Host vs plugins (big picture)
+
+- **Host:** The main app. It loads first and **provides** React, ReactDOM, and other shared libs.
+- **Plugins:** Separate builds. They **consume** those libs from the host instead of bundling their own.
+
+Module Federation is what lets the host "expose" modules and plugins "consume" them at **runtime**, so everyone ends up using the **same** instance of React, etc.
+
+#### The host webpack config
+
+The host config looks like this:
+
+```javascript
+const { ModuleFederationPlugin } = require('webpack').container;
+
+new ModuleFederationPlugin({
+  name: 'host',
+  shared: {
+    react: { singleton: true, requiredVersion: '^18.0.0' },
+    'react-dom': { singleton: true },
+    '@mui/material': { singleton: true },
+    'react-router-dom': { singleton: true },
+  },
+})
+```
+
+- **ModuleFederationPlugin** comes from Webpack 5's built-in plugin (no extra npm package beyond `webpack`).
+- **name: 'host'** is the identifier for this build when other apps load it as a "remote" (see below for what `name` means).
+- **shared** is the list of packages the host will **provide** and that remotes (plugins) should **use from the host** instead of bundling. So "define your shared dependencies" = fill this `shared` object with React, ReactDOM, UI lib, router, etc.
+
+#### Why `singleton: true` is crucial
+
+- **Without `singleton: true`:** Webpack may still allow multiple versions of the same dependency (e.g. host has React 18.2, plugin was built with 18.1). In some cases you can get **two copies** of React in the same page → "Invalid hook call" and the issues from Slide 14.
+- **With `singleton: true`:** Webpack is told: "There must be **exactly one** instance of this dependency in the runtime." It will resolve host and all plugins to that single instance. So: one React, one ReactDOM → hooks and context work; one MUI → one theme/context; one router → one history.
+
+So the script line *"The `singleton: true` flag is crucial—it forces a single instance"* is exactly that: it's the switch that enforces "one copy at runtime."
+
+#### What `requiredVersion` does (safety)
+
+- **Purpose:** Declares which version(s) of the dependency the host supports (e.g. `'^18.0.0'` = 18.x).
+- **At build/runtime:** If a plugin was built against a version that doesn't satisfy `requiredVersion` (e.g. plugin built with React 17, host has React 18), Module Federation can **warn or fail** instead of silently loading a second copy or behaving oddly.
+
+So *"requiredVersion adds safety—it'll warn if a plugin expects an incompatible version"* means: you get an explicit version check instead of mysterious bugs when host and plugin disagree on React (or other shared lib) version. Example: Platform has React 18.2.0; Plugin A/B built with 18.x → use platform's React; Plugin C built with 17.x → treated as incompatible (build or runtime warning/failure). That's the "safety" in the slide.
+
+#### Plugin side: same `shared`, so they don't bundle
+
+The slide focuses on the host, but the other half is: in **each plugin's** webpack config you mark the **same** dependencies as `shared` (with `singleton: true` and optionally `requiredVersion`). Effect: plugins **do not bundle** React, ReactDOM, MUI, router, etc.; at runtime they **receive** those from the host. So there's only one copy of each in the browser. If a plugin *didn't* list them as shared, that plugin would bundle its own React → multiple instances again. So "in each plugin's config, you mark the same dependencies as shared so they're not bundled" is the other half of the implementation.
+
+#### Webpack 5 built-in, no extra libraries
+
+Module Federation is part of **Webpack 5** (`require('webpack').container.ModuleFederationPlugin`). You don't need a separate "module federation" npm package or custom loaders for this. You do need to be on Webpack 5 (or a tool that uses it). So the slide is correct: "This is Webpack 5's built-in feature. No extra libraries needed."
+
+---
+
+#### Build time vs runtime (for this slide)
+
+**Build time** = when your bundler (e.g. Webpack) runs and turns your source into output files (JS/CSS bundles). Nothing is running in the browser yet.
+
+- Your code and config decide: "Do I put React inside this bundle or not?"
+- For a **plugin** that lists `react` in `shared`: Webpack **does not** put React in the plugin's bundle. It emits "stubs" or "placeholders" that say "get `react` from the container at runtime."
+- For the **host**: Webpack puts React (and other shared deps) into the host's bundle (or a shared chunk) so the host can provide them.
+
+**Runtime** = when the user opens the app in the browser and the JS runs.
+
+- The host loads first and creates the "container" and provides the shared modules (e.g. React).
+- When a plugin loads, its code says "I need `react`." The Module Federation runtime resolves that to the **host's** React instance instead of loading a second copy.
+- So "load React at runtime" here means: the plugin's bundle does **not** contain React; at runtime it **gets** React from the host.
+
+Summary:
+
+| When        | What happens |
+|------------|---------------|
+| **Build time** | Webpack sees `shared: { react: { singleton: true } }` in the plugin → plugin bundle is built **without** React inside it. |
+| **Runtime**    | Browser runs host (React is there), then runs plugin chunk → plugin's `import 'react'` is satisfied by the host's React. |
+
+So "plugins don't include React in their build" = build-time decision (config). "Load React at runtime" = at runtime the plugin receives React from the host.
+
+---
+
+#### Configuration that makes plugins not bundle React and use host's React at runtime
+
+You need the **same** shared deps on both sides: host **provides**, plugin **consumes** and doesn't bundle.
+
+**Host (provides React and others):**
+
+```javascript
+// webpack.config.js — HOST application
+const { ModuleFederationPlugin } = require('webpack').container;
+
+module.exports = {
+  // ... entry, output, etc.
+  plugins: [
+    new ModuleFederationPlugin({
+      name: 'host',
+      shared: {
+        react: { singleton: true, requiredVersion: '^18.0.0' },
+        'react-dom': { singleton: true, requiredVersion: '^18.0.0' },
+        '@mui/material': { singleton: true },
+        'react-router-dom': { singleton: true },
+      },
+    }),
+  ],
+};
+```
+
+**Plugin (does not bundle React; gets it from host at runtime):**
+
+```javascript
+// webpack.config.js — PLUGIN application
+const { ModuleFederationPlugin } = require('webpack').container;
+
+module.exports = {
+  // ... entry, output, etc.
+  plugins: [
+    new ModuleFederationPlugin({
+      name: 'catalogPlugin',           // remote name the host uses to load this plugin
+      filename: 'remoteEntry.js',      // manifest/chunk the host loads
+      exposes: {
+        './plugin': './src/plugin.ts', // what this plugin exposes
+      },
+      shared: {
+        react: { singleton: true, requiredVersion: '^18.0.0' },
+        'react-dom': { singleton: true, requiredVersion: '^18.0.0' },
+        '@mui/material': { singleton: true },
+        'react-router-dom': { singleton: true },
+      },
+    }),
+  ],
+};
+```
+
+What actually makes the plugin "not include React" and "load React at runtime":
+
+- **Host:** `shared` means "I will provide these modules to anyone who loads my container." Webpack bundles them (or a shared chunk) in the host build.
+- **Plugin:** Listing the **same** packages in `shared` with `singleton: true` (and compatible `requiredVersion`) tells Webpack: "Do **not** bundle these; expect them from the container at runtime." So the plugin's output does not contain React; at runtime, when the plugin runs inside the host's page, `import 'react'` is resolved to the host's React.
+
+So: **same `shared` list on host and plugin + `singleton: true`** = plugins don't include React in their build and load the one React instance from the host at runtime.
+
+---
+
+#### What `name: 'host'` means
+
+In Module Federation, `name` is the **unique id of this build** in the federation. It's used by the runtime to know "who is who" when sharing modules and loading remotes.
+
+**On the host:**
+
+- `name: 'host'` (or `'platform'`, `'shell'`, etc.) is that id. It doesn't change behavior of sharing by itself; it just names this container.
+- This name is used when the runtime sets up the "shared scope": the host's shared modules are associated with this container. When a plugin (remote) loads and asks for `react`, the runtime looks up who provides it (the host) and uses that single instance.
+- So for a **host that only provides shared deps** and doesn't load remotes, `name` is still required by the plugin; the value can be anything (e.g. `'host'`, `'platform'`).
+
+**On a plugin (remote):**
+
+- `name: 'catalogPlugin'` is the **remote name** the host uses when loading this plugin, e.g.:
+  - `import('catalogPlugin/plugin')` → the host loads the plugin's `remoteEntry.js` and then the exposed `./plugin`; the string `'catalogPlugin'` must match the plugin's `name`.
+
+So:
+
+- **Host:** `name: 'host'` = "I am the container named `host`; I provide the shared modules."
+- **Plugin:** `name: 'catalogPlugin'` = "I am the remote named `catalogPlugin`; the host loads me with `import('catalogPlugin/...')`."
+
+If you rename the host to `name: 'platform'`, sharing still works the same; only the internal container name changes. The important part for "plugins not including React and loading it at runtime" is the **shared** config on both sides, not the literal value of `name: 'host'`.
+
+---
+
+#### Recap: script phrase → meaning
+
+| Script phrase | Meaning |
+|---------------|--------|
+| "Add the ModuleFederationPlugin" | In the host (and plugins) webpack config, use `ModuleFederationPlugin` from `webpack.container`. |
+| "Define your shared dependencies" | Set `shared: { react: {...}, 'react-dom': {...}, ... }` so host provides them and plugins don't bundle them. |
+| "`singleton: true` is crucial" | Ensures exactly one instance at runtime; avoids multiple Reacts and "Invalid hook call". |
+| "`requiredVersion` adds safety" | Ensures plugins use a compatible version; you get warnings/errors instead of silent misbehavior. |
+| "Webpack 5 built-in, no extra libraries" | No extra npm packages; just Webpack 5. |
 
 ---
 
