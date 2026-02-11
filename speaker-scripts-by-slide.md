@@ -1,6 +1,6 @@
 # Speaker Scripts by Slide — Simple & Descriptive
 
-This file gives you a **simple, descriptive speaker script for each slide** of the Design Systems at Scale presentation, plus a **transition** line to move smoothly to the next slide. Use it when you want to say things in plain language, with a bit more explanation built in. Each slide has: (1) **Speaker script**—what to say for that slide; (2) **Transition**—a short phrase or sentence to lead into the next slide. You can read the script aloud and use the transition when you advance.
+This file gives you a **simple, descriptive, and engaging speaker script for every slide** of the Design Systems at Scale presentation, plus a **transition** to the next slide. Scripts are written to be easy to understand, interesting, and attention-catching—plain language, concrete examples, and clear signposting. Each slide has: (1) **Speaker script**—what to say; (2) **Transition**—a short lead-in to the next slide. Use the script as-is or adapt it to your style.
 
 **Source:** Based on [speaker-notes-detailed.md](speaker-notes-detailed.md).  
 **Deck:** 39 slides. **Total time:** ~40 minutes + Q&A.
@@ -13,7 +13,7 @@ This file gives you a **simple, descriptive speaker script for each slide** of t
 
 **Speaker script:**
 
-Good morning (or afternoon), everyone. Welcome to this session: "Design Systems at Scale: Maintaining UI Consistency in Dynamic Plugin Architectures." I'm Mitesh Kumar, and I work on the frontend for Red Hat Developer Hub. Today I want to give you a practical guide for anyone building a platform that uses plugins—where lots of separate pieces plug into one app. Whether you're building an IDE, a developer portal, or any app that can be extended with plugins, the challenges we'll talk about are the same. So this is for you.
+Good morning (or afternoon). Have you ever opened a product and thought, "This part looks like it's from a different app"? That's what we're here to fix. I'm Mitesh Kumar from Red Hat Developer Hub. This session is a practical guide: how to keep your UI consistent when dozens—or hundreds—of plugins plug into one app. Whether you're building an IDE, a developer portal, or any extensible product, the same challenges show up. And the same strategies work.
 
 **Transition:** So that's the intro. Next, here's what we'll cover in this session.
 
@@ -23,7 +23,7 @@ Good morning (or afternoon), everyone. Welcome to this session: "Design Systems 
 
 **Speaker script:**
 
-Here's what we'll cover. On the left side, the **challenge**: why it's so hard to keep the UI consistent when you have dozens or even hundreds of plugins built by different teams. On the right side, the **solutions**: five strategies that really work, with patterns you can take back and use with your own teams. I'll use Red Hat Developer Hub as our main example—we run more than a hundred plugins in production—but the same ideas apply to any plugin-based system you're building.
+Here's the map. On the left: the **challenge**—why your UI goes off the rails when many teams ship many plugins. On the right: five **solutions** that actually work, with patterns you can use tomorrow. I'll walk you through Red Hat Developer Hub: we run 100+ plugins in production. Same ideas apply whether you have ten plugins or a thousand.
 
 **Transition:** First, let's align on what we mean by a plugin architecture.
 
@@ -35,7 +35,7 @@ Here's what we'll cover. On the left side, the **challenge**: why it's so hard t
 
 **Speaker script:**
 
-First, what do we mean by a plugin architecture? Think of it like this. You have one **core application**—we call it the host. It’s the shell: the layout, the navigation, the place where everything lives. Then other people—other teams, or even other companies—build **plugins** that slot into that shell. Plugin A might add CI/CD. Plugin B might add security scanning. Plugin N might do something else. Each plugin adds a capability. But here’s the key: they all run **inside** the same host. So your user sees one application. They don’t see “twenty different tools”—they see one product with many features. The twist is that those features can be built by completely different people. Your team, the community, third-party vendors. That’s the power—and that’s also why keeping it consistent is hard.
+First, what do we mean by a plugin architecture? Picture one **core app**—the host. It’s the shell: layout, navigation, the frame. Now other people add **plugins** that slot in. One plugin does CI/CD. Another does security. Another does something else. Each adds a capability. But here’s the key: they all run **inside** the same host. So your user sees one app. They don’t see “twenty different tools”—they see one product with many features. But those features can be built by your team, the community, or third-party vendors. Different people, one product. That’s the power—and that’s also why keeping it consistent is hard.
 
 **Transition:** So why are plugin architectures everywhere? Let's talk about that.
 
@@ -45,7 +45,7 @@ First, what do we mean by a plugin architecture? Think of it like this. You have
 
 **Speaker script:**
 
-Quick show of hands—how many of you work on an application that has some kind of plugin or extension system? [Pause.] Quite a few. And there's a good reason. Plugin architectures are everywhere. Think about it: VS Code has tens of thousands of extensions. Figma has thousands of plugins. WordPress has tens of thousands. Why? Because plugins solve a core business problem: **you can extend the product without everything going through one central team**. Third parties can build features. Different teams can ship at their own speed. You get an ecosystem instead of one big monolith. But that power comes with a challenge, and that's what we'll tackle next.
+Quick show of hands—how many of you work on an application that has some kind of plugin or extension system? [Pause.] Quite a few. And there's a good reason. **Plugin architectures are everywhere—and there are many of them.** VS Code has tens of thousands of extensions. Shopify has 8,000-plus apps. Figma has thousands of plugins. WordPress has tens of thousands. Different products use different words—extensions, apps, plugins—but it's the same idea: a host platform and add-ons that extend it. In this talk I'll call them all plugins. So why are there so many? Because plugins solve a core business problem: **you can extend the product without everything going through one central team**. Many third parties can build features. Many teams can ship at their own speed. You get an ecosystem—many pieces from many people—instead of one big monolith. But that power comes with a challenge, and that's what we'll tackle next.
 
 **Transition:** That challenge is consistency. Here's the problem.
 
@@ -55,7 +55,7 @@ Quick show of hands—how many of you work on an application that has some kind 
 
 **Speaker script:**
 
-Here's the fundamental tension: **Your users don't care that your UI is built from 50 different plugins. They expect it to feel like one application.** So what goes wrong? On the left: different teams make different design choices—different blues, different spacing. Third-party plugins might ignore your guidelines. Dependencies get out of sync—one plugin uses one version of the UI library, another uses a different one. CSS from one plugin clashes with another. Accessibility is inconsistent. On the right, the cost: users get confused, support tickets go up, your brand looks inconsistent, and maintenance becomes a nightmare. And here's the worst part: **users blame your platform, not the plugins.** So it's in your interest to get this right.
+Here's the tension. **Your users don't care that 50 plugins built your UI. They expect one app.** So what breaks? Different teams pick different blues and spacing. Plugins ignore your guidelines. One plugin uses React 18.1, another 18.2—versions drift. CSS from one plugin overrides another. Accessibility is all over the place. The cost? Confused users. More support tickets. A brand that looks patched together. And the worst part: **users blame you—the platform—not the plugin.** So getting consistency right is in your interest.
 
 **Transition:** Let me show you the difference visually—before and after.
 
@@ -65,7 +65,7 @@ Here's the fundamental tension: **Your users don't care that your UI is built fr
 
 **Speaker script:**
 
-Picture the difference. Without a strategy: buttons look different in different places, forms behave differently, navigation doesn't feel the same. Users feel lost. With a strategy: one set of components, consistent behavior, one visual language. Users feel confident. Your goal is to make plugins **invisible** to users. They should never think, "This part feels like a different app." It should all feel like one product.
+Picture before and after. **Without a strategy:** buttons change from page to page. Forms behave differently. Navigation feels random. Users feel lost. **With a strategy:** one set of components, one behavior, one look. Users feel at home. Your goal? Make plugins **invisible**. Users should never think, "This bit feels like another app." It's one product, period.
 
 **Transition:** So how do we get there? Here are the five strategies that work together.
 
@@ -77,7 +77,7 @@ Picture the difference. Without a strategy: buttons look different in different 
 
 **Speaker script:**
 
-Now let's look at the solution—five strategies that work together. **One: Central Theme System.** One place that defines colors, fonts, spacing. That's your foundation. **Two: Runtime Dependency Sharing.** Use something like Module Federation so every plugin uses the *same* React and the *same* UI library at runtime—one instance of each, not many. **Three: Style Isolation.** Stop one plugin's CSS from breaking another's—with things like class prefixes or Shadow DOM. **Four: Extension Contracts.** Clear rules for where and how plugins plug in: mount points, routes, typed APIs. **Five: Configuration-Driven Customization.** Let theming and features be controlled by config, not code, so you can change look and behavior without redeploying. We'll go deep on each of these.
+Five strategies—and they work together. **One: Central theme.** One place for colors, fonts, spacing. Your foundation. **Two: Share dependencies at runtime.** So every plugin uses the *same* React and UI library—one instance, not four. We'll use Module Federation. **Three: Isolate styles.** So one plugin's CSS doesn't break another's. Class prefixes or Shadow DOM. **Four: Extension contracts.** Clear rules: where plugins plug in, how they register routes and APIs. Mount points, types. **Five: Configuration-driven.** Theming and features from config, not code—change look without redeploying. We'll go through each.
 
 **Transition:** I'll ground all of this in a real case study—Red Hat Developer Hub.
 
@@ -87,7 +87,7 @@ Now let's look at the solution—five strategies that work together. **One: Cent
 
 **Speaker script:**
 
-Through this talk I'll use Red Hat Developer Hub as our case study. RHDH is an internal developer portal built on Backstage—the open platform from Spotify. We have more than a hundred plugins: from Red Hat teams, from the Backstage community, and from third-party vendors. Our challenge was making all of them look and feel like **one** product. Everything I show you comes from real production code we run today.
+Everything I show you is real. Red Hat Developer Hub—RHDH—is our internal developer portal, built on Backstage. We run 100+ plugins: our teams, the Backstage community, and third-party vendors. The challenge? Make all of them feel like **one** product. No toy examples. This is production.
 
 **Transition:** Let's start with Strategy One: the central theme system.
 
@@ -99,7 +99,7 @@ Through this talk I'll use Red Hat Developer Hub as our case study. RHDH is an i
 
 **Speaker script:**
 
-Strategy One is the Central Theme System. This is where you should start. The idea is simple: **create one package—or one module—that controls all visual styles.** What does it control? Colors: primary, secondary, status colors like error and success. Typography: font family, sizes, weights. Spacing: your 4px, 8px, 16px system so everyone uses the same rhythm. How components look: buttons, cards, tables. And support for both light and dark mode. This is your foundation. Get this right first; everything else builds on it.
+Strategy One: **one place that controls how everything looks.** One package or module. What's in it? Colors—primary, secondary, error, success. Typography—fonts, sizes, weights. Spacing—your 4, 8, 16px rhythm so nobody invents their own. How buttons, cards, and tables look. Light and dark mode. This is your foundation. Get it right first. Everything else sits on top.
 
 **Transition:** Why does centralizing matter so much? Here's what happens when you don't.
 
@@ -109,7 +109,7 @@ Strategy One is the Central Theme System. This is where you should start. The id
 
 **Speaker script:**
 
-Here's what happens if you don't centralize. Plugin A uses one shade of blue. Plugin B uses another. Plugin C just picks "blue." The platform uses a fourth shade. Result? Four different blues on the same screen. Users notice. With a central theme package, there's **one** definition of "primary blue." Every plugin gets it from the same place. One blue everywhere. It sounds obvious, but a lot of teams skip it and let each plugin define its own colors. That's a disaster waiting to happen.
+What happens without it? Plugin A picks a blue. Plugin B picks another. Plugin C says "blue." You use a fourth. Result: four blues on one screen. Users notice. With a central theme, there's **one** "primary blue." Every plugin uses it. One blue everywhere. Sounds obvious—but many teams skip it. Each plugin does its own thing. That's the disaster we're avoiding.
 
 **Transition:** Here's the concrete implementation pattern.
 
@@ -119,7 +119,7 @@ Here's what happens if you don't centralize. Plugin A uses one shade of blue. Pl
 
 **Speaker script:**
 
-Here's the pattern. Define a **TypeScript interface** for your theme—so the shape of your palette and tokens is fixed and typed. Start with core colors: primary, secondary. Add semantic colors: error, warning, success, info—so plugins don't hardcode red or green. Then add **component-specific tokens**: sidebar background, card borders, table headers. Aim for around 20 to 30 tokens to start; you can add more later. The important thing is: define everything in one place. That way the compiler and your IDE keep everyone in sync.
+The pattern in practice. Define a **TypeScript interface** for your theme—one shape, one contract. Core colors first: primary, secondary. Then semantic: error, warning, success, info—so plugins never hardcode red or green. Then **component tokens**: sidebar background, card border, table header. Start with 20–30 tokens; grow as you need. One place, one definition. The compiler and your IDE keep everyone in sync.
 
 **Transition:** In RHDH we put this into practice—here's how it looks.
 
@@ -129,7 +129,7 @@ Here's the pattern. Define a **TypeScript interface** for your theme—so the sh
 
 **Speaker script:**
 
-In RHDH we have a dedicated theme plugin with 30-plus color tokens. What's interesting is the **ThemeConfigOptions** type. It lets you choose between PatternFly and MUI styling **per component**. So buttons can be PatternFly style and tables MUI style. The platform decides—not the plugins. That gives us flexibility while keeping control. We use a **useThemes()** hook so the platform and plugins all get theme data from one place.
+In RHDH we have a theme plugin with 30+ color tokens. The interesting bit: **ThemeConfigOptions** lets you pick PatternFly or MUI **per component**. Buttons can be PatternFly; tables can be MUI. The platform decides—not the plugins. One hook—**useThemes()**—and everyone gets theme data from the same place.
 
 **Transition:** If you remember one thing from the theme section, it's this takeaway.
 
@@ -139,7 +139,7 @@ In RHDH we have a dedicated theme plugin with 30-plus color tokens. What's inter
 
 **Speaker script:**
 
-If you take one thing from this talk, make it this: **invest in a solid theme package early. It's your foundation.** Quick checklist: one package, at least 20–30 tokens, component-specific tokens, light and dark mode, TypeScript types, and a central hook or API. Do that first.
+One takeaway: **invest in a theme package early. It's your foundation.** Checklist: one package, 20–30 tokens, component tokens, light and dark, TypeScript types, one central hook. Do that first.
 
 **Transition:** Now Strategy Two: runtime dependency sharing—and the number one cause of plugin bugs.
 
@@ -151,7 +151,7 @@ If you take one thing from this talk, make it this: **invest in a solid theme pa
 
 **Speaker script:**
 
-Strategy Two is Runtime Dependency Sharing. This is the number one cause of plugin bugs. If each plugin bundles its **own** React, you end up with multiple React instances on the page at the same time. So you might have four copies of React loaded. Hooks don't work across those instances—you get those cryptic "Invalid hook call" errors. Bundle size blows up. **React has to be a singleton**—one instance for the whole app. Same for any stateful library like Redux or the router.
+Strategy Two: share dependencies at runtime. Why does it matter? This is the **number one cause** of plugin bugs. If every plugin bundles its own React, you get four Reacts on the page. Hooks break. You see "Invalid hook call." Bundle size explodes. **React must be a singleton**—one instance for the whole app. Same for Redux, the router, anything stateful.
 
 **Transition:** The fix is Module Federation—sharing at runtime.
 
@@ -161,7 +161,7 @@ Strategy Two is Runtime Dependency Sharing. This is the number one cause of plug
 
 **Speaker script:**
 
-The solution is Module Federation—sharing libraries at **runtime**, not at build time. The host application loads React, ReactDOM, MUI, the router—once. Plugins don't bundle their own copies; they get these from the host when they run. So you have a single instance of everything. One React, one MUI, one router. Problem solved.
+The fix: **Module Federation.** Share at runtime, not at build time. The host loads React, ReactDOM, MUI, the router—once. Plugins don't bundle their own; they take them from the host when they run. One React. One MUI. One router. Done.
 
 **Transition:** What should you actually share? And what should plugins keep in their own bundle?
 
@@ -171,7 +171,7 @@ The solution is Module Federation—sharing libraries at **runtime**, not at bui
 
 **Speaker script:**
 
-What should you share? React and ReactDOM—absolutely. The UI library—yes. The router—yes. State management—yes. Core platform components—yes. What should plugins bundle themselves? Things only they use: plugin-specific libraries, things like D3 for charts, heavy utilities. Rule of thumb: share anything that **must** be a singleton, or that more than half your plugins use.
+What to share? React, ReactDOM, the UI library, the router, state management, core platform components. What do plugins keep? Whatever only they use—D3, chart libs, heavy utils. Rule of thumb: share what **must** be a singleton, or what more than half your plugins use.
 
 **Transition:** Here's how you set it up with Webpack.
 
@@ -181,7 +181,7 @@ What should you share? React and ReactDOM—absolutely. The UI library—yes. Th
 
 **Speaker script:**
 
-Here's how you set it up with Webpack Module Federation. In your webpack config you add the **ModuleFederationPlugin**. You list your shared dependencies—React, ReactDOM, MUI, router. The **singleton: true** flag is crucial: it forces exactly one instance at runtime. **requiredVersion** adds safety: if a plugin was built for React 17 and the host has React 18, you get a warning instead of silent bugs. This is built into Webpack 5—no extra libraries needed.
+How to set it up? Add the **ModuleFederationPlugin** to your webpack config. List shared deps: React, ReactDOM, MUI, router. **singleton: true** is crucial—it forces one instance at runtime. **requiredVersion** catches mismatches: plugin built on React 17, host on 18? You get a warning, not a silent bug. Built into Webpack 5. No extra libs.
 
 **Transition:** In RHDH we use Scalprum on top of that—quick look.
 
@@ -191,7 +191,7 @@ Here's how you set it up with Webpack Module Federation. In your webpack config 
 
 **Speaker script:**
 
-In RHDH we use Scalprum, which sits on top of Module Federation and adds some useful features. For example, we transform plugin manifests so that script URLs point to our **backend API** instead of a static CDN. So plugins are served dynamically. We can update a plugin by deploying just that plugin—we don't have to rebuild the host application. That makes iteration faster and safer.
+In RHDH we use **Scalprum** on top of Module Federation. It does something neat: we rewrite plugin manifests so scripts load from our **backend API**, not a static CDN. Plugins are served dynamically. Update a plugin? Deploy just that plugin. No host rebuild. Faster and safer.
 
 **Transition:** Strategy Three is style isolation—because even with one MUI, CSS can still fight.
 
@@ -203,7 +203,7 @@ In RHDH we use Scalprum, which sits on top of Module Federation and adds some us
 
 **Speaker script:**
 
-Strategy Three is Style Isolation. CSS is global by default. So if Plugin A styles `.MuiButton-root` with red and Plugin B styles the same class with blue, which wins? It depends on load order—and that can change. It's unpredictable. Even when you share MUI through Module Federation, different plugins can still add their own overrides. Those overrides conflict. So sharing the library is necessary but not enough; you need isolation at the **style** level too.
+Strategy Three: **style isolation.** CSS is global. Plugin A styles the same button class red. Plugin B styles it blue. Who wins? Load order—and that can change. Unpredictable. Even with one shared MUI, plugins still add overrides. They clash. So sharing the library isn't enough. You need isolation at the **style** level.
 
 **Transition:** Here are two main techniques that work.
 
@@ -213,7 +213,7 @@ Strategy Three is Style Isolation. CSS is global by default. So if Plugin A styl
 
 **Speaker script:**
 
-Two main techniques. **One: Class name prefixing.** MUI has a ClassNameGenerator. You configure it to add a prefix. So instead of every plugin using `.MuiButton-root`, Plugin A gets `.plugin-tekton-MuiButton-root` and Plugin B gets something different. No more conflicts. **Two: Shadow DOM.** You create a shadow root and render the plugin inside it. Styles inside don't leak out; outside styles don't leak in. Shadow DOM gives you the strongest isolation but is more involved—theming and debugging can be trickier. Choose based on how much isolation you need.
+Two main techniques. **One: Class name prefixing.** MUI's ClassNameGenerator lets you add a prefix. So Plugin A gets `.plugin-tekton-MuiButton-root`, Plugin B gets a different prefix. No more clashes. **Two: Shadow DOM.** Render the plugin inside a shadow root. Styles don't leak in or out. Strongest isolation—but theming and debugging are trickier. Pick based on how much you need.
 
 **Transition:** A few more options we use in practice.
 
@@ -223,7 +223,7 @@ Two main techniques. **One: Class name prefixing.** MUI has a ClassNameGenerator
 
 **Speaker script:**
 
-A few more options. **CSS Modules** give your classes unique hashes at build time—good for avoiding clashes inside a plugin, but you still need a plan for shared libraries like MUI. **BEM with a plugin prefix**—like tekton-button, rbac-table—works if everyone follows the convention, but it's easy to break when people are in a hurry. In RHDH we use the **ClassNameGenerator approach in thin wrappers** around each plugin. More than 14 plugins use this pattern, and we get isolation without forking the upstream code.
+Other options: **CSS Modules** (unique hashes at build time—good inside a plugin, but you still need a plan for MUI). **BEM + plugin prefix**—tekton-button, rbac-table—works if everyone follows it; easy to break under pressure. In RHDH we use **thin wrappers** that set the ClassNameGenerator prefix and re-export the plugin. 14+ plugins, no forking upstream.
 
 **Transition:** Here's that wrapper pattern in a bit more detail.
 
@@ -233,7 +233,7 @@ A few more options. **CSS Modules** give your classes unique hashes at build tim
 
 **Speaker script:**
 
-Here's the wrapper pattern. We import the ClassNameGenerator, configure it with a prefix for that plugin, then re-export the original plugin unchanged. The wrapper adds isolation without touching the upstream code. That's a big deal—you can integrate third-party plugins without forking them. You stay in control of the design system while still using community or vendor plugins.
+The wrapper in practice: import ClassNameGenerator, set a prefix for that plugin, re-export the original. No changes to upstream. You get isolation—and you can bring in third-party or community plugins without forking. Your design system stays in control.
 
 **Transition:** Strategy Four is extension contracts—the rules of engagement between platform and plugins.
 
@@ -245,7 +245,7 @@ Here's the wrapper pattern. We import the ClassNameGenerator, configure it with 
 
 **Speaker script:**
 
-Strategy Four is Extension Contracts. Without contracts, plugins can do anything—render anywhere, replace layout, depend on internal APIs. Upgrading the host can break plugins; changing a plugin can break the shell. There's no clear boundary. With contracts, the platform defines **extension points**—named slots like "entity overview" or "settings page." Plugins register what they provide for which slot. The platform controls layout and navigation; plugins only fill slots. Integration becomes stable and predictable. Contracts are your **rules of engagement** between platform and plugins.
+Strategy Four: **extension contracts.** Without them, plugins can do anything—render anywhere, replace layout, use internal APIs. Upgrades break things. No clear boundary. With contracts, the platform defines **slots**—"entity overview," "settings page." Plugins say: "I fill this slot with this component." Platform owns layout. Plugins fill slots. Stable, predictable. Contracts are your **rules of engagement.**
 
 **Transition:** The main idea is mount points—named slots in the layout.
 
@@ -255,7 +255,7 @@ Strategy Four is Extension Contracts. Without contracts, plugins can do anything
 
 **Speaker script:**
 
-Mount points are **named slots** where plugins can inject UI. The platform defines the slots: page header, sidebar, main content, entity overview. Plugins say things like: "Put my overview card in entity.overview." The platform controls the structure—where the slots are. Plugins only provide the content. So plugins can't break the layout, because they can only use the slots you've defined. They can't move the sidebar or remove the header; they just fill in the blanks.
+**Mount points** are named slots. Page header. Sidebar. Entity overview. Plugins say: "Put my card in entity.overview." You control where the slots are. Plugins only supply content. So they can't break the layout—they can't move the sidebar or kill the header. They just fill the blanks.
 
 **Transition:** Beyond UI slots, you have routes and API extensions.
 
@@ -265,7 +265,7 @@ Mount points are **named slots** where plugins can inject UI. The platform defin
 
 **Speaker script:**
 
-You can extend the idea beyond UI slots. **Routes** can be declared by plugins too—path, component, and optionally a menu item. The host's router uses these so navigation and deep links work without the host hardcoding every plugin route. **API extensions** let plugins provide or extend platform APIs using a factory pattern. The platform exposes a stable API layer so other plugins or the host can use them in a typed way. All of this goes through the same contract model.
+Same idea beyond UI. **Routes:** plugins declare path, component, and maybe a menu item. The host's router picks them up—no hardcoded plugin routes. **API extensions:** plugins provide or extend APIs via a factory. The platform exposes a stable, typed layer. All through the same contract.
 
 **Transition:** TypeScript makes these contracts enforceable at build time.
 
@@ -275,7 +275,7 @@ You can extend the idea beyond UI slots. **Routes** can be declared by plugins t
 
 **Speaker script:**
 
-TypeScript enforces contracts at **compile time**. The platform defines something like **MountPointComponent**—what a plugin must provide: the component, optional layout config, optional conditions like "only show for this entity kind." When plugins implement this interface, TypeScript catches mistakes right away—missing or wrong properties—when you build, not when the app is running. So the types are your contract, and they double as documentation that stays in sync with the code.
+**TypeScript** enforces the contract at **build time**. You define something like MountPointComponent: component, optional layout, optional "only show when" conditions. Plugins implement it. Wrong or missing props? TypeScript catches it when you build—not in production. Types are the contract, and they're docs that never go stale.
 
 **Transition:** In RHDH, plugin integration is driven entirely by YAML—no code changes.
 
@@ -285,7 +285,7 @@ TypeScript enforces contracts at **compile time**. The platform defines somethin
 
 **Speaker script:**
 
-In RHDH, plugin integration is **entirely declarative**. This YAML configures the Tekton plugin: mount points, layout, conditions, routes, menu items. Want to add a plugin? Edit the YAML. Want to remove it? Delete the lines. No code changes. No rebuilds. Operations teams can enable or disable plugins, or change where they show up, without involving developers. That's a big win for multi-tenant or gradual rollouts.
+In RHDH, plugin integration is **all YAML.** Mount points, layout, conditions, routes, menu—all in config. Add a plugin? Edit YAML. Remove it? Delete lines. No code. No rebuild. Ops can turn plugins on or off, or move them around, without developers. Huge for multi-tenant and gradual rollouts.
 
 **Transition:** Strategy Five is configuration-driven customization—theming and features without code.
 
@@ -297,7 +297,7 @@ In RHDH, plugin integration is **entirely declarative**. This YAML configures th
 
 **Speaker script:**
 
-Strategy Five is Configuration-Driven Customization. Why config over code? Code changes need developers, a PR, a build, a deploy. Config can often be changed by ops or product, sometimes at runtime. Code is hard to A/B test; config makes experiments easy. For multi-tenant platforms, configuration is essential—different tenants can get different logos, colors, and features without separate codebases.
+Strategy Five: **configuration-driven.** Why config over code? Code means dev, PR, build, deploy. Config can be changed by ops or product—often at runtime. Code is hard to A/B test; config is easy. For multi-tenant, config is essential: different logos, colors, features—no separate codebases.
 
 **Transition:** What should actually go in that config?
 
@@ -307,7 +307,7 @@ Strategy Five is Configuration-Driven Customization. Why config over code? Code 
 
 **Speaker script:**
 
-What should be in that config? **Logos**—with light and dark variants so they work on different backgrounds. **Theme colors**—primary, sidebar background, for both light and dark modes. **Feature flags**—like enable dark mode, compact sidebar. All of that in a YAML or JSON file. No code. The app reads the config and applies it through your theme system and feature APIs.
+What goes in the config? **Logos**—light and dark variants. **Theme colors**—primary, sidebar, for light and dark. **Feature flags**—dark mode, compact sidebar. YAML or JSON. No code. The app reads it and applies it through your theme and feature APIs.
 
 **Transition:** On the platform side, hooks make that config easy to consume.
 
@@ -317,7 +317,7 @@ What should be in that config? **Logos**—with light and dark variants so they 
 
 **Speaker script:**
 
-On the platform side, **hooks** hide where the config lives. Something like `useSidebarBackground` reads from the theme and returns the right value. Components use the hook instead of reading raw config. You can also respect the user's OS preference—light or dark—so the app follows system theme automatically. One place for config, one set of hooks to use it.
+On the platform, **hooks** hide the config. `useSidebarBackground()` reads from the theme and returns the value. Components use the hook—they don't touch raw config. You can also follow the user's OS: light or dark, automatically. One config, one set of hooks.
 
 **Transition:** Let's see how all five strategies fit together in one architecture.
 
@@ -329,7 +329,7 @@ On the platform side, **hooks** hide where the config lives. Something like `use
 
 **Speaker script:**
 
-Let's see how it all fits. At the top: the **theme package**—colors, typography, component styles. Your foundation. Next: the **Module Federation host**—it shares React, the UI library, the router. Then the **extension point system**—mount points, routes, API factories. Below that: **plugins**, each with a thin wrapper for CSS isolation. At the bottom: **configuration**—theme values, plugin config, feature flags. This is the full picture. All five strategies working together.
+How it all fits. **Top:** theme package—colors, typography, styles. Foundation. **Next:** Module Federation host—shared React, UI lib, router. **Then:** extension system—mount points, routes, APIs. **Below:** plugins, each with a thin wrapper for CSS isolation. **Bottom:** config—theme, plugin settings, feature flags. Full stack. All five strategies together.
 
 **Transition:** The wrapper pattern in a bit more detail.
 
@@ -339,7 +339,7 @@ Let's see how it all fits. At the top: the **theme package**—colors, typograph
 
 **Speaker script:**
 
-The wrapper in a bit more detail. It's just a thin layer: your package.json declares the exports, and your index file sets up CSS isolation—like the ClassNameGenerator prefix—and re-exports the original plugin. That way you can integrate third-party plugins without forking them. You get isolation without modifying their code.
+Wrapper in detail: a thin layer. package.json points to your entry. The entry sets the class-name prefix and re-exports the real plugin. Third-party plugins, no fork. Isolation without touching their code.
 
 **Transition:** If you're starting from scratch, here's a phased roadmap.
 
@@ -349,7 +349,7 @@ The wrapper in a bit more detail. It's just a thin layer: your package.json decl
 
 **Speaker script:**
 
-If you're starting from scratch, think in phases. **Phase 1—Foundation:** Theme package, Module Federation, and a few mount points. **Phase 2—Isolation:** Your CSS isolation strategy, a wrapper template, and documented contracts. **Phase 3—Configuration:** YAML theming, hooks, light and dark. **Phase 4—Enforcement:** TypeScript contracts, linting, maybe visual regression tests. Don't try to do everything at once. Start with the foundation; the rest builds on it.
+Starting from zero? Go in phases. **Phase 1:** Theme, Module Federation, a few mount points. **Phase 2:** CSS isolation, wrapper template, document contracts. **Phase 3:** YAML theming, hooks, light/dark. **Phase 4:** TypeScript contracts, linting, maybe visual regression. Don't do it all at once. Foundation first—then build.
 
 **Transition:** And a few common pitfalls to avoid.
 
@@ -359,7 +359,7 @@ If you're starting from scratch, think in phases. **Phase 1—Foundation:** Them
 
 **Speaker script:**
 
-Learn from common mistakes. No theme system leads to inconsistent colors. Bundling shared deps in every plugin leads to multiple React instances. No CSS isolation leads to style conflicts. No contracts mean plugins break things in unpredictable ways. Code-only config means every change needs a developer and a deploy. Each of these has a solution—and we've covered them all in the five strategies.
+Pitfalls to avoid. No theme → inconsistent colors. Every plugin bundles React → multiple instances, hooks break. No CSS isolation → style wars. No contracts → plugins break the shell. Config only in code → every tweak needs a deploy. Each has a fix—and we've covered all five.
 
 **Transition:** What does this get you in practice? Here are some real numbers.
 
@@ -371,7 +371,7 @@ Learn from common mistakes. No theme system leads to inconsistent colors. Bundli
 
 **Speaker script:**
 
-Here are some real results. **Plugin onboarding:** from two or three weeks down to two or three days. That's a big change. **UI inconsistency bugs:** from about 15 per month to about 2. Users notice the consistency. **Bundle size** for five plugins: from 2.8 MB down to 850 KB—shared dependencies really pay off. **Design review rounds:** from four or five down to one or two, because plugins align with the system faster. **Theme changes:** from days of code changes to minutes of editing config. We have over a hundred plugins in production keeping a consistent UX. These strategies work.
+Real numbers. **Onboarding:** 2–3 weeks → 2–3 days. **UI bugs:** ~15/month → ~2. Users feel the difference. **Bundle size** (5 plugins): 2.8 MB → 850 KB. Shared deps pay off. **Design reviews:** 4–5 rounds → 1–2. Plugins align faster. **Theme changes:** days of code → minutes of config. 100+ plugins in production, one consistent UX. These strategies work.
 
 **Transition:** Five things to take away.
 
@@ -381,7 +381,7 @@ Here are some real results. **Plugin onboarding:** from two or three weeks down 
 
 **Speaker script:**
 
-Five things to take away. **One:** Invest in a central theme system early; it's your foundation. **Two:** Use Module Federation for runtime sharing—one React instance. **Three:** Implement style isolation; otherwise CSS conflicts are inevitable. **Four:** Define clear extension contracts—TypeScript and mount points. **Five:** Make it configuration-driven so operations teams can change behavior without code. They'll thank you.
+Five takeaways. **One:** Theme early—it's your foundation. **Two:** Module Federation—one React, one UI lib. **Three:** Style isolation—or CSS will fight. **Four:** Extension contracts—TypeScript and mount points. **Five:** Config-driven—so ops can change behavior without code. They'll thank you.
 
 **Transition:** One final thought before we wrap up.
 
@@ -391,7 +391,7 @@ Five things to take away. **One:** Invest in a central theme system early; it's 
 
 **Speaker script:**
 
-I'll leave you with this: A good design system in a plugin architecture is **invisible**. Users see one cohesive application. Developers build features without constantly fighting consistency. That invisibility is the goal. When you get there, everyone wins—users, developers, and ops.
+One last thought. A great design system in a plugin world is **invisible**. Users see one app. Developers ship without fighting consistency. That invisibility is the goal. Get there, and everyone wins.
 
 **Transition:** Here are some resources to go deeper.
 
@@ -401,7 +401,7 @@ I'll leave you with this: A good design system in a plugin architecture is **inv
 
 **Speaker script:**
 
-For more: Backstage.io for the open source platform. RHDH on GitHub for our implementation—theme, Scalprum, wrappers, config. Module Federation docs for the technical details. I'm happy to connect—my handles are on the slide. Slides and examples will be available at the GitHub link. Thank you.
+Resources: Backstage.io for the platform. RHDH on GitHub for our code—theme, Scalprum, wrappers, config. Module Federation docs for the how-to. I'm happy to connect—handles on the slide. Slides and examples at the GitHub link. Thanks.
 
 **Transition:** Thank you—and over to you for questions.
 
@@ -411,7 +411,7 @@ For more: Backstage.io for the open source platform. RHDH on GitHub for our impl
 
 **Speaker script:**
 
-Thank you for your time and attention. I'd love to hear your questions—about implementation, challenges you're facing, or anything else. Let's discuss. [Repeat questions for the room, keep answers concise, offer to go deeper offline or via the repo.]
+Thank you. Questions? Implementation, challenges you're facing, whatever's on your mind—let's talk. [Repeat for the room, keep answers tight, offer to go deeper offline or via the repo.]
 
 **Transition:** [None—open the floor for Q&A.]
 
