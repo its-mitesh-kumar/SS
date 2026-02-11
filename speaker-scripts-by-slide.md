@@ -275,7 +275,7 @@ The same contract idea goes beyond UI slots. **Routes first.** Plugins don't ask
 
 **Speaker script:**
 
-**TypeScript** enforces the contract at **build time**. You define something like MountPointComponent: component, optional layout, optional "only show when" conditions. Plugins implement it. Wrong or missing props? TypeScript catches it when you build—not in production. Types are the contract, and they're docs that never go stale.
+How do you make sure plugins actually follow the contract? **TypeScript.** The platform defines a type—something like MountPointComponent—that says exactly what a plugin must provide: the component to render, optional layout hints like grid column, and optional conditions like "only show this card when the entity is a Component." When a plugin registers for a slot, it has to pass an object that matches this type. If they forget the component, or spell something wrong, or pass the wrong shape—TypeScript reports an error **when they build**, not when the app is already running in production. So broken integrations get caught in the editor and in CI, before anything ships. And because the contract lives in the type definition, it doubles as documentation: the type is always up to date, because the compiler won't let the code drift from it. Types are the contract, and they're docs that never go stale.
 
 **Transition:** In RHDH, plugin integration is driven entirely by YAML—no code changes.
 
