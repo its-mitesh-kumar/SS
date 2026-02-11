@@ -265,7 +265,7 @@ Strategy Four: **extension contracts.** Without them, plugins can do anything—
 
 **Speaker script:**
 
-Same idea beyond UI. **Routes:** plugins declare path, component, and maybe a menu item. The host's router picks them up—no hardcoded plugin routes. **API extensions:** plugins provide or extend APIs via a factory. The platform exposes a stable, typed layer. All through the same contract.
+The same contract idea goes beyond UI slots. **Routes first.** Plugins don't ask you to add their page to your router by hand. Instead they declare: "Here's my path—for example slash tekton. Here's the component that renders the page. And optionally, here's a menu item so it shows up in the sidebar." The host's router reads those declarations and wires the routes. So you never hardcode "if path is tekton, show TektonPage." The contract drives it. **Then API extensions.** Plugins can provide new APIs—like a Tekton API for CI/CD data—or extend existing ones. They do it by registering a factory: a function that, when the platform needs the API, creates the implementation. The platform exposes one stable, typed layer so the host and other plugins can get and use these APIs in a consistent way. So: routes and APIs are extension points too. All through the same contract—declare, don't hack.
 
 **Transition:** TypeScript makes these contracts enforceable at build time.
 

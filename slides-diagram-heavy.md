@@ -828,6 +828,31 @@ flowchart TB
 
 <div class="slide-content-area">
 
+<div class="two-diagrams">
+
+<div>
+<div class="diagram-label purple-text">Platform layout: named slots</div>
+<div class="diagram-wrap">
+
+```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#B8A9C9', 'primaryTextColor':'#ffffff', 'primaryBorderColor':'#9B8BB5', 'lineColor':'#9B8BB5', 'secondaryColor':'#C4B5D4', 'tertiaryColor':'#D4C5E0'}}}%%
+flowchart TB
+  subgraph layout["Platform defines slots"]
+    H[page.header]
+    S[page.sidebar]
+    M[Main content]
+    E[entity.overview]
+    H & S --> M
+    M --> E
+  end
+  P[Plugin: MyCard] --> E
+```
+
+</div>
+</div>
+
+<div>
+<div class="diagram-label purple-text">Slots and plugins</div>
 <div class="diagram-wrap">
 
 ```mermaid
@@ -840,6 +865,9 @@ flowchart TB
   P1[Plugin A] --> S1
   P2[Plugin B] --> S3
 ```
+
+</div>
+</div>
 
 </div>
 
