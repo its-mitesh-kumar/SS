@@ -285,7 +285,7 @@ How do you make sure plugins actually follow the contract? **TypeScript.** The p
 
 **Speaker script:**
 
-In RHDH, plugin integration is **all YAML.** Mount points, layout, conditions, routes, menu—all in config. Add a plugin? Edit YAML. Remove it? Delete lines. No code. No rebuild. Ops can turn plugins on or off, or move them around, without developers. Huge for multi-tenant and gradual rollouts.
+In RHDH, we don't wire plugins in code. **Everything lives in YAML.** Mount points, layout, conditions, routes, menu—all in config. One place describes which slots a plugin fills, how it's laid out, when to show it—for example only for entities of kind Component—its routes and sidebar menu. All in one config file. So to add a plugin you add a block in the YAML. To remove it you delete that block. No change to the host application code. No rebuild of the host. That means ops—or support, or admins—can turn plugins on or off or move them to different slots by editing config. No developer, no PR, no deploy of the host. That's a big deal for multi-tenant: different tenants get different config, so different plugin sets, with the same host build. And for gradual rollouts: enable a plugin for one tenant first, then roll it out to more—all by changing config.
 
 **Transition:** Strategy Five is configuration-driven customization—theming and features without code.
 
